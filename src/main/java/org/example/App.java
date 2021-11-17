@@ -1,6 +1,6 @@
 package org.example;
 
-/** Tim Adejumo
+/** Timothy Adejumo
  * This Vehicle Bookings Management Systems manages the booking of Vehicles
  * by Passengers.
  *

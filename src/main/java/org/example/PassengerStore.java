@@ -25,6 +25,31 @@ public class PassengerStore {
         }
     }
 
+    public void addPassenger(String name,String email,String phone, double latitude, double longitude)
+    {
+        boolean found = false;
+        Passenger i = new Passenger(name,email,phone,latitude,longitude);
+        for(Passenger p: passengerList)
+        {
+            if(p.equals(i))
+            {
+                found = true;
+                break;
+            }
+
+
+        }
+        if(found == false)
+        {
+            passengerList.add(i);
+            System.out.print("Passenger added:" + i );
+        }
+        else
+        {
+            System.out.println("Passenger already exists");
+        }
+    }
+
     /**
      * Read Passenger records from a text file and create and add Passenger
      * objects to the PassengerStore.
@@ -54,6 +79,17 @@ public class PassengerStore {
             System.out.println("Exception thrown. " + e);
         }
     }
+
+    public Passenger findPassengerByName(String name) {
+        for(Passenger p : passengerList){
+            if(p.getName().equalsIgnoreCase(name))
+            {
+                return p;
+            }
+        }
+        return null;
+    }
+
 
     // TODO - see functional spec for details of code to add
 

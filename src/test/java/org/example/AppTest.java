@@ -24,8 +24,8 @@ public class AppTest
         assertEquals(5, van.getLastServicedDate().getMonthValue());
         assertEquals(24, van.getLastServicedDate().getDayOfMonth());
         assertEquals(126000,van.getMileage());
-        assertEquals(53.2543, van.getDepotGPSLocation().getLatitude(),0.00005);
-        assertEquals(-6.4444, van.getDepotGPSLocation().getLongitude(),0.00005);
+        assertEquals(53.2543, van.getLatitude(),0.00005);
+        assertEquals(-6.4444, van.getLongitude(),0.00005);
         assertEquals(240,van.getLoadSpace(),0.05);
     }
 }

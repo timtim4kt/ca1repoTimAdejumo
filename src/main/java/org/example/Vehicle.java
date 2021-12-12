@@ -1,6 +1,7 @@
 package org.example;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public abstract class Vehicle
 {
@@ -15,7 +16,8 @@ public abstract class Vehicle
     private double costPerMile;
     private LocalDate lastServicedDate;
     private int mileage; // mileage recorded at last service
-    private LocationGPS depotGPSLocation;
+    private double latitude;
+    private double longitude;
 
     // Constructor called when a new Vehicle is being created.
     // No vehicle id is passed in as an argument,
@@ -35,7 +37,8 @@ public abstract class Vehicle
         this.costPerMile = costPerMile;
         this.lastServicedDate = LocalDate.of(year, month,day);
         this.mileage = mileage;
-        this.depotGPSLocation = new LocationGPS(latitude,longitude);
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     // Constructor to create a Vehicle object, when the id is available.
@@ -56,7 +59,8 @@ public abstract class Vehicle
         this.costPerMile = costPerMile;
         this.lastServicedDate = LocalDate.of(year, month,day);
         this.mileage = mileage;
-        this.depotGPSLocation = new LocationGPS(latitude,longitude);
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public int getId() {
@@ -114,10 +118,6 @@ public abstract class Vehicle
     {
         this.mileage = mileage;
     }
-    public LocationGPS getDepotGPSLocation()
-    {
-        return depotGPSLocation;
-    }
     public void setDepotGPSLocation(double latitude, double longitude) {
         new LocationGPS(latitude,longitude);
     }
@@ -131,17 +131,42 @@ public abstract class Vehicle
     }
 
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
     @Override
     public String toString()
     {
-        return this.getClass().getSimpleName() + "{" +"id:"+ this.id + ", type:"+type+ ", make=" + make + ", model=" + model
-                + ", milesPerKm=" + milesPerKwH +  ", registration=" + registration
-                + ", costPerMile=" + costPerMile + ", lastServicedDate="
-                + lastServicedDate + ", mileage=" + mileage + ", depotGPSLocation="
-                + depotGPSLocation + '}';
+        return  "ID:"+ this.id + "\n" + "==================================================================" + "\n"  + "type:"+type+ "\nmake=" + make + "\nmodel=" + model
+                + "\nmilesPerKm=" + milesPerKwH +  "\nregistration=" + registration
+                + "\ncostPerMile=" + costPerMile + "\nlastServicedDate="
+                + lastServicedDate + "\nmileage=" + mileage + "\ndepotGPSLocation=" + "{" + "latitude="
+                + latitude + "," + "longitude=" + longitude + "}"  + "\n" ;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return registration.equals(vehicle.registration);
+    }
 
-     
+    @Override
+    public int hashCode() {
+        return Objects.hash(registration);
+    }
 }

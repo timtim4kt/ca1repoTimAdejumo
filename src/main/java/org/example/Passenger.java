@@ -102,9 +102,9 @@ public class Passenger {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + "{"
-                + "id=" + id + ", name=" + name + ", email="
-                + email + ", phone=" + phone + ", location="
-                + location + "}";
+        return  "ID:" + id + "\n" + "===========================================================" + "\n"
+                 + "name=" + name + "\nemail="
+                + email + "\nphone=" + phone + "\nlocation="
+                + location + "}" + "\n" + "===========================================================" + "\n";
     }
 }

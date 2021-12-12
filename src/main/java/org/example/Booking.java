@@ -1,6 +1,7 @@
 package org.example;
 
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.Objects;
 
 class Booking
@@ -9,17 +10,43 @@ class Booking
     private int passengerId;
     private int vehicleId;
     private LocalDateTime bookingDateTime;
-    private LocationGPS startLocation;
-    private LocationGPS endLocation;
+    private double startLatitude;
+    private double startLongitude;
+    private double endLatitude;
+    private double endLongitude;
     private double cost;  //Calculated at booking time
 
-    public Booking(int bookingId, int passengerId, int vehicleId, LocalDateTime bookingDateTime, LocationGPS startLocation, LocationGPS endLocation, double cost) {
+
+
+    public Booking(int passengerId, int vehicleId,
+                   int year, int month, int day, int hour, int minute,
+                   double startLatitude, double startLongitude, double endLatitude, double endLongitude,
+                   double cost)
+    {
+        this.bookingId = idGenerator.getNextId();;
+        this.passengerId = passengerId;
+        this.vehicleId = vehicleId;
+        this.bookingDateTime = LocalDateTime.of(year,month,day,hour,minute);
+        this.startLatitude = startLatitude;
+        this.startLongitude = startLongitude;
+        this.endLatitude = endLatitude;
+        this.endLongitude = endLongitude;
+        this.cost = cost;
+    }
+
+    public Booking(int bookingId, int passengerId, int vehicleId,
+                   int year, int month, int day, int hour, int minute,
+                   double startLatitude, double startLongitude, double endLatitude, double endLongitude,
+                   double cost)
+    {
         this.bookingId = bookingId;
         this.passengerId = passengerId;
         this.vehicleId = vehicleId;
-        this.bookingDateTime = bookingDateTime;
-        this.startLocation = startLocation;
-        this.endLocation = endLocation;
+        this.bookingDateTime = LocalDateTime.of(year,month,day,hour,minute);
+        this.startLatitude = startLatitude;
+        this.startLongitude = startLongitude;
+        this.endLatitude = endLatitude;
+        this.endLongitude = endLongitude;
         this.cost = cost;
     }
 
@@ -55,20 +82,36 @@ class Booking
         this.bookingDateTime = bookingDateTime;
     }
 
-    public LocationGPS getStartLocation() {
-        return startLocation;
+    public double getStartLatitude() {
+        return startLatitude;
     }
 
-    public void setStartLocation(LocationGPS startLocation) {
-        this.startLocation = startLocation;
+    public void setStartLatitude(double startLatitude) {
+        this.startLatitude = startLatitude;
     }
 
-    public LocationGPS getEndLocation() {
-        return endLocation;
+    public double getStartLongitude() {
+        return startLongitude;
     }
 
-    public void setEndLocation(LocationGPS endLocation) {
-        this.endLocation = endLocation;
+    public void setStartLongitude(double startLongitude) {
+        this.startLongitude = startLongitude;
+    }
+
+    public double getEndLatitude() {
+        return endLatitude;
+    }
+
+    public void setEndLatitude(double endLatitude) {
+        this.endLatitude = endLatitude;
+    }
+
+    public double getEndLongitude() {
+        return endLongitude;
+    }
+
+    public void setEndLongitude(double endLongitude) {
+        this.endLongitude = endLongitude;
     }
 
     public double getCost() {
@@ -92,17 +135,20 @@ class Booking
         return Objects.hash(bookingId, passengerId, vehicleId, bookingDateTime);
     }
 
+    private IdGenerator idGenerator = IdGenerator.getInstance("next-id-store.txt");
+
+
     @Override
     public String toString() {
-        return "Booking{" +
-                "bookingId=" + bookingId +
-                ", passengerId=" + passengerId +
-                ", vehicleId=" + vehicleId +
-                ", bookingDateTime=" + bookingDateTime +
-                ", startLocation=" + startLocation +
-                ", endLocation=" + endLocation +
-                ", cost=" + cost +
-                '}';
+        return "ID:" + bookingId + "\n" +
+                "=====================================================" + "\n" +
+                "passengerId=" + passengerId +
+                "\nvehicleId=" + vehicleId +
+                "\nbookingDateTime=" + bookingDateTime +
+                "\nstartLocation={Latitude=" + startLatitude +",Longitude=" + startLongitude + "}" +
+                "\nendLocation={Latitude=" + endLatitude +",Longitude=" + endLongitude + "}" +
+                "\ncost=" + cost +
+                "\n" + "=====================================================" + "\n";
     }
     //TODO - see specification
 
